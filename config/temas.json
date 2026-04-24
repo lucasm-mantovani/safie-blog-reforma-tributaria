@@ -1,0 +1,44 @@
+{
+  "temas": [
+    {
+      "nome": "IBS e CBS — novos tributos",
+      "slug": "ibs-cbs",
+      "palavras_chave": ["IBS reforma tributária", "CBS contribuição", "IVA dual Brasil", "alíquota IBS CBS", "regulamentação IBS"]
+    },
+    {
+      "nome": "Imposto Seletivo",
+      "slug": "imposto-seletivo",
+      "palavras_chave": ["Imposto Seletivo Brasil", "IS reforma tributária", "imposto pecado Brasil", "bebidas Imposto Seletivo"]
+    },
+    {
+      "nome": "Transição tributária (2026-2033)",
+      "slug": "transicao-tributaria",
+      "palavras_chave": ["transição reforma tributária", "fim PIS COFINS", "fim ICMS ISS", "cronograma reforma tributária", "período transição"]
+    },
+    {
+      "nome": "Split payment e fiscalização",
+      "slug": "split-payment",
+      "palavras_chave": ["split payment reforma", "recolhimento separado tributo", "cashback reforma tributária", "devolução ICMS"]
+    },
+    {
+      "nome": "Setores específicos e a reforma",
+      "slug": "setores-reforma",
+      "palavras_chave": ["reforma tributária serviços", "reforma tributária indústria", "reforma tributária agro", "reforma tributária saúde"]
+    },
+    {
+      "nome": "Regimes especiais e o Simples Nacional",
+      "slug": "simples-reforma",
+      "palavras_chave": ["Simples Nacional reforma tributária", "MEI reforma", "Lucro Presumido reforma", "regime optativo reforma"]
+    },
+    {
+      "nome": "Compliance e adaptação das empresas",
+      "slug": "compliance-reforma",
+      "palavras_chave": ["adaptação reforma tributária empresa", "ERP reforma tributária", "NFe reforma", "obrigações acessórias reforma"]
+    },
+    {
+      "nome": "Regulamentação infralegal",
+      "slug": "regulamentacao",
+      "palavras_chave": ["lei complementar reforma tributária", "regulamento IBS CBS", "CCIF", "Comitê Gestor IBS"]
+    }
+  ]
+}

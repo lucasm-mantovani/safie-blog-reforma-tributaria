@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://reformatributaria.safie.blog.br/sitemap.xml

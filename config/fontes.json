@@ -1,0 +1,11 @@
+{
+  "rss_feeds": [
+    {"nome": "Valor Econômico Legislação", "url": "https://valor.globo.com/legislacao/rss/"},
+    {"nome": "JOTA", "url": "https://www.jota.info/feed"},
+    {"nome": "Migalhas", "url": "https://www.migalhas.com.br/rss/ultimas-noticias"},
+    {"nome": "InfoMoney Economia", "url": "https://www.infomoney.com.br/economia/feed/"},
+    {"nome": "Conjur", "url": "https://www.conjur.com.br/rss.xml"},
+    {"nome": "Valor Econômico Empresas", "url": "https://valor.globo.com/empresas/rss/"},
+    {"nome": "Exame Economia", "url": "https://exame.com/economia/feed/"}
+  ]
+}
