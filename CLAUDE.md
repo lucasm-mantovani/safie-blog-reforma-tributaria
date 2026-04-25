@@ -79,8 +79,12 @@ Evitar: notícias puramente políticas, especulações sem ato oficial, conteúd
 
 ## Estado atual do projeto (2026-04-24)
 - **Fase 1 concluída:** Estrutura de pastas, configs, templates HTML, scripts Python, rodar_diario.sh
-- **Fase 2:** Interface HTML/CSS — PENDENTE (verificar se precisa ajustes visuais)
-- **Fase 3:** Teste do buscar_noticia.py — PENDENTE
-- **Fase 4:** Teste do pipeline completo (gerar + publicar) — PENDENTE
-- **Fase 5:** GitHub + Cloudflare Pages + Cron job — PENDENTE
-- **Fase 6:** Validação SEO e documentação — PENDENTE
+- **Fase 2 concluída:** Interface HTML/CSS (identidade SAFIE), visual validado no browser
+- **Fase 3 concluída:** buscar_noticia.py — RSS funcionando, duplo filtro (base + tema) implementado
+- **Fase 4 concluída:** Pipeline completo testado — primeiro artigo gerado e publicado localmente
+- **Fase 5 parcialmente concluída:**
+  - GitHub: https://github.com/lucasm-mantovani/safie-blog-reforma-tributaria (no ar)
+  - Cron job (launchd): configurado, roda todo dia às 8h15
+  - Cloudflare Pages: PENDENTE — conectar repositório no painel da Cloudflare
+  - DNS: PENDENTE — criar CNAME "reformatributaria" → safie-blog-reforma-tributaria.pages.dev no Registro.br
+- **Fase 6:** Validação SEO e documentação final — PENDENTE
