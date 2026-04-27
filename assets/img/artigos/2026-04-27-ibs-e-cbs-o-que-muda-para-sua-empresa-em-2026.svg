@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#2a2520"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Fundo com gradiente -->
+  <rect width="1200" height="630" fill="url(#bg-grad)"/>
+
+  <!-- Padrão de quadrados escalonados (documentos empilhados) -->
+  <g stroke="#d4a857" fill="none" opacity="0.07">
+    <rect x="820" y="60"  width="100" height="120" rx="2" stroke-width="0.8"/>
+    <rect x="840" y="80"  width="100" height="120" rx="2" stroke-width="0.8"/>
+    <rect x="860" y="100" width="100" height="120" rx="2" stroke-width="0.8"/>
+    <rect x="1050" y="300" width="90" height="110" rx="2" stroke-width="0.8"/>
+    <rect x="1065" y="315" width="90" height="110" rx="2" stroke-width="0.8"/>
+    <rect x="1080" y="330" width="90" height="110" rx="2" stroke-width="0.8"/>
+    <rect x="870" y="460"  width="80" height="100" rx="2" stroke-width="0.7"/>
+    <rect x="885" y="475"  width="80" height="100" rx="2" stroke-width="0.7"/>
+  </g>
+
+  <!-- Documento principal estilizado -->
+  <g stroke="#d4a857" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Corpo do documento -->
+    <rect x="900" y="155" width="210" height="280" rx="4"
+          stroke-width="2" fill="#d4a857" fill-opacity="0.05" opacity="0.7"/>
+    <!-- Dobra superior direita (canto de página) -->
+    <polyline points="1070,155 1110,155 1110,195 1070,155"
+              stroke-width="1.5" fill="#d4a857" fill-opacity="0.08" opacity="0.6"/>
+    <!-- Linhas de texto simuladas -->
+    <line x1="924" y1="215" x2="1086" y2="215" stroke-width="1.2" opacity="0.45"/>
+    <line x1="924" y1="235" x2="1086" y2="235" stroke-width="1.2" opacity="0.40"/>
+    <line x1="924" y1="255" x2="1086" y2="255" stroke-width="1.2" opacity="0.40"/>
+    <line x1="924" y1="275" x2="1040" y2="275" stroke-width="1.2" opacity="0.35"/>
+    <line x1="924" y1="305" x2="1086" y2="305" stroke-width="1" opacity="0.30"/>
+    <line x1="924" y1="320" x2="1086" y2="320" stroke-width="1" opacity="0.30"/>
+    <line x1="924" y1="335" x2="1086" y2="335" stroke-width="1" opacity="0.30"/>
+    <line x1="924" y1="355" x2="1070" y2="355" stroke-width="1" opacity="0.25"/>
+    <line x1="924" y1="370" x2="1086" y2="370" stroke-width="1" opacity="0.25"/>
+    <!-- Cabeçalho do documento -->
+    <rect x="924" y="172" width="136" height="24" rx="2"
+          stroke-width="1" fill="#d4a857" fill-opacity="0.10" opacity="0.5"/>
+  </g>
+
+  <!-- Selo IBS+CBS (elemento central identificador) -->
+  <g transform="translate(1005, 415)">
+    <!-- Círculo externo do selo -->
+    <circle r="44" fill="#d4a857" fill-opacity="0.08" stroke="#d4a857" stroke-width="1.5" opacity="0.65"/>
+    <!-- Círculo interno tracejado -->
+    <circle r="33" fill="none" stroke="#d4a857" stroke-width="0.8" stroke-dasharray="4,3" opacity="0.50"/>
+    <!-- Texto do selo -->
+    <text text-anchor="middle" y="-8" fill="#d4a857" opacity="0.75"
+          font-family="'DM Sans', Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1">IBS</text>
+    <text text-anchor="middle" y="7" fill="#d4a857" opacity="0.65"
+          font-family="'DM Sans', Arial, sans-serif" font-size="9" letter-spacing="1">+</text>
+    <text text-anchor="middle" y="20" fill="#d4a857" opacity="0.75"
+          font-family="'DM Sans', Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1">CBS</text>
+  </g>
+
+  <!-- Logo — canto superior esquerdo -->
+  <rect x="52" y="40" width="10" height="10" fill="#d4a857"/>
+  <text x="68" y="51" fill="#ffffff"
+        font-family="'DM Sans', Arial, sans-serif" font-size="15" font-weight="600">SAFIE Reforma Tributária</text>
+
+  <!-- Categoria e data -->
+  <text x="52" y="210" fill="#d4a857"
+        font-family="'DM Sans', Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="3">IBS E CBS — NOVOS TRIBUTOS · 27 ABR 2026</text>
+
+  <!-- Título — linha 1 -->
+  <text x="52" y="286" fill="#ffffff"
+        font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700">IBS e CBS: o que muda</text>
+  <!-- Título — linha 2 -->
+  <text x="52" y="352" fill="#d4a857"
+        font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700">para sua empresa em 2026</text>
+  <!-- Título — linha 3 (última linha fica na cor de destaque) -->
+  <text x="52" y="418" fill="#d4a857"
+        font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700"></text>
+
+  <!-- Barra de destaque — canto inferior esquerdo -->
+  <rect x="52" y="572" width="64" height="4" fill="#d4a857"/>
+</svg>
