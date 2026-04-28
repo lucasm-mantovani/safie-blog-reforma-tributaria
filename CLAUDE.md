@@ -82,9 +82,14 @@ Evitar: notícias puramente políticas, especulações sem ato oficial, conteúd
 - **Fase 2 concluída:** Interface HTML/CSS (identidade SAFIE), visual validado no browser
 - **Fase 3 concluída:** buscar_noticia.py — RSS funcionando, duplo filtro (base + tema) implementado
 - **Fase 4 concluída:** Pipeline completo testado — primeiro artigo gerado e publicado localmente
-- **Fase 5 parcialmente concluída:**
+- **Fase 5 concluída:**
   - GitHub: https://github.com/lucasm-mantovani/safie-blog-reforma-tributaria (no ar)
   - Cron job (launchd): configurado, roda todo dia às 8h15
-  - Cloudflare Pages: PENDENTE — conectar repositório no painel da Cloudflare
-  - DNS: PENDENTE — criar CNAME "reformatributaria" → safie-blog-reforma-tributaria.pages.dev no Registro.br
-- **Fase 6:** Validação SEO e documentação final — PENDENTE
+  - Cloudflare Pages: no ar (safie-blog-reforma-tributaria.pages.dev)
+  - Domínio: reformatributaria.safie.blog.br (DNS propagado em 2026-04-28)
+- **Fase 6 concluída (2026-04-28):**
+  - DNS propagado e HTTP 200 confirmados
+  - robots.txt + sitemap.xml funcionando
+  - Schema.org BlogPosting + FAQPage em todos os artigos
+  - meta robots, keywords, og:*, twitter:* no template
+  - Validação manual opcional: Google Rich Results Test + PageSpeed Insights
