@@ -1,0 +1,5 @@
+# Dependências Python dos scripts do pipeline diário
+# Versões pinadas para reprodutibilidade
+anthropic==0.91.0
+feedparser==6.0.12
+python-dotenv==1.2.1
