@@ -154,6 +154,10 @@ Regras:
 - Todo conteúdo em português brasileiro
 - Não use travessão (—)
 - Parágrafos curtos: máximo 3 linhas. Prefira dividir em 2 parágrafos. Facilita leitura em mobile
+- REGRAS CRÍTICAS PARA JSON VÁLIDO:
+  - Use aspas simples (') para atributos HTML internos, ex: <a href='...'>, <h2 class='...'>
+  - Para aspa dupla literal dentro de uma string, escape com backslash: \\"texto\\"
+  - NÃO use quebras de linha literais dentro de strings JSON; use \\n quando necessário
 - Retorne APENAS o JSON válido, sem texto antes ou depois"""
 
 
@@ -179,18 +183,83 @@ def chamar_claude(prompt: str) -> str:
     return resposta
 
 
+# ── Salvar resposta bruta para forense ───────────────────────────────────────
+
+def salvar_resposta_bruta(texto: str, dir_dados: Path) -> None:
+    """Salva resposta bruta do Claude em dados/ultima_resposta_claude.txt
+    para forense em caso de falha de parsing. Sobrescreve a cada execução."""
+    try:
+        path = dir_dados / "ultima_resposta_claude.txt"
+        path.write_text(texto, encoding="utf-8")
+    except Exception as e:
+        log.warning(f"[aviso] falha ao salvar resposta bruta: {e}")
+
+
 # ── Parse da resposta JSON ────────────────────────────────────────────────────
 
 def extrair_json(texto: str) -> dict:
+    """Extrai JSON da resposta do Claude com fallback para sanitização
+    de newlines literais dentro de strings. Levanta ValueError se falhar."""
     texto = texto.strip()
+
     if texto.startswith("```"):
         linhas = texto.split("\n")
         texto = "\n".join(linhas[1:-1])
+
     inicio = texto.find("{")
     fim    = texto.rfind("}") + 1
     if inicio == -1 or fim == 0:
-        raise ValueError("JSON não encontrado na resposta do Claude")
-    return json.loads(texto[inicio:fim])
+        raise ValueError("JSON não encontrado na resposta")
+
+    bloco = texto[inicio:fim]
+
+    erro_original = None
+    try:
+        return json.loads(bloco)
+    except json.JSONDecodeError as e1:
+        erro_original = str(e1)
+        log.warning(f"[fallback] parse direto falhou: {e1}. Sanitizando newlines.")
+
+    try:
+        bloco_sanitizado = re.sub(
+            r'"(?:[^"\\]|\\.)*"',
+            lambda m: m.group(0).replace("\n", " ").replace("\r", " "),
+            bloco,
+            flags=re.DOTALL
+        )
+        return json.loads(bloco_sanitizado)
+    except json.JSONDecodeError as e2:
+        raise ValueError(
+            f"JSON inválido após sanitização de newlines. "
+            f"Erro original: {erro_original}. Erro pós-sanitização: {e2}"
+        ) from e2
+
+
+# ── Geração com retry ─────────────────────────────────────────────────────────
+
+def gerar_artigo_com_retry(prompt_original: str, max_tentativas: int = 2) -> dict:
+    """Chama o LLM com retry. Se primeira resposta falhar parse, regenera 1x
+    com prompt reforçado. Salva resposta bruta sempre."""
+    instrucao_reforco = (
+        "\n\nIMPORTANTE: a resposta anterior foi rejeitada por JSON inválido. "
+        "Regerar atentando para: (1) usar aspas simples dentro de HTML interno, "
+        "ex: <a href='...'>; (2) escapar aspas duplas literais com backslash, "
+        "ex: \\\"texto\\\"; (3) NÃO usar quebras de linha literais dentro das "
+        "strings JSON, usar \\\\n se necessário."
+    )
+    prompt_atual = prompt_original
+    ultima_excecao = None
+    for tentativa in range(max_tentativas):
+        resposta = chamar_claude(prompt_atual)
+        salvar_resposta_bruta(resposta, BASE / "dados")
+        try:
+            return extrair_json(resposta)
+        except ValueError as e:
+            ultima_excecao = e
+            log.warning(f"Tentativa {tentativa+1}/{max_tentativas} falhou: {e}")
+            if tentativa < max_tentativas - 1:
+                prompt_atual = prompt_original + instrucao_reforco
+    raise ValueError(f"Falha em {max_tentativas} tentativas. Última: {ultima_excecao}")
 
 
 # ── Montagem do artigo ────────────────────────────────────────────────────────
@@ -328,11 +397,8 @@ def main(noticia_path: Path = NOTICIA_PATH) -> dict:
     log.info(f"Notícia: {noticia.get('titulo', '(sem título)')}")
     log.info(f"Tema: {noticia.get('tema_nome', '')}")
 
-    prompt   = montar_prompt(noticia, config_blog)
-    resposta = chamar_claude(prompt)
-
-    log.info("[Claude] Parseando resposta...")
-    dados_claude = extrair_json(resposta)
+    prompt       = montar_prompt(noticia, config_blog)
+    dados_claude = gerar_artigo_com_retry(prompt)
 
     artigo = montar_artigo_completo(dados_claude, noticia, config_blog)
 
