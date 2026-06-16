@@ -6,7 +6,7 @@
 
 set -e
 
-PASTA="$HOME/CLAUDE/Blog-reforma-tributaria"
+PASTA="$HOME/CLAUDE/Blogs-SAFIE/Blog-reforma-tributaria"
 LOG="$PASTA/logs/pipeline_$(date +%Y-%m-%d).log"
 
 echo "=======================================" >> "$LOG"
