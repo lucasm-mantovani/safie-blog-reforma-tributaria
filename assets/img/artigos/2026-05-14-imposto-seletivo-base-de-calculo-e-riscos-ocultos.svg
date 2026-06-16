@@ -69,11 +69,11 @@
         font-family="'DM Sans', Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="3">IMPOSTO SELETIVO · 14 MAI 2026</text>
 
   <!-- Título — linha 1 -->
-  <text x="52" y="286" fill="#d4a857"
+  <text x="52" y="286" fill="#ffffff"
         font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700">Imposto Seletivo: base de</text>
   <!-- Título — linha 2 -->
   <text x="52" y="352" fill="#d4a857"
-        font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700"></text>
+        font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700">cálculo e riscos ocultos</text>
   <!-- Título — linha 3 (última linha fica na cor de destaque) -->
   <text x="52" y="418" fill="#d4a857"
         font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700"></text>

@@ -70,13 +70,13 @@
 
   <!-- Título — linha 1 -->
   <text x="52" y="286" fill="#ffffff"
-        font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700">Simples Nacional</text>
+        font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700">Simples Nacional e</text>
   <!-- Título — linha 2 -->
-  <text x="52" y="352" fill="#d4a857"
-        font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700">e regimes</text>
+  <text x="52" y="352" fill="#ffffff"
+        font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700">regimes especiais na</text>
   <!-- Título — linha 3 (última linha fica na cor de destaque) -->
   <text x="52" y="418" fill="#d4a857"
-        font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700"></text>
+        font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700">reforma tributária</text>
 
   <!-- Barra de destaque — canto inferior esquerdo -->
   <rect x="52" y="572" width="64" height="4" fill="#d4a857"/>
