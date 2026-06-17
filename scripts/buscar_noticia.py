@@ -5,7 +5,7 @@ Fluxo:
   1. Para cada tema em config/temas.json, busca notícias via RSS
   2. Filtra resultados das últimas 48h
   3. Seleciona a notícia mais relevante (sem repetir histórico dos últimos 15 dias)
-  4. Se RSS falhar ou não encontrar → retorna tema evergreen
+  4. Se RSS não trouxer notícia fresca → encerra com exit 75 (Direção 1: sem evergreen, não publica)
   5. Prioridade: fontes oficiais e regulatórias, depois grandes veículos
 
 Uso:
@@ -290,68 +290,16 @@ def selecionar_melhor(candidatos: List[Dict]) -> Optional[Dict]:
     return escolhida
 
 
-# ── Evergreen fallback ────────────────────────────────────────────────────────
-
-TEMAS_EVERGREEN = [
-    {
-        "tipo": "evergreen",
-        "tema_slug": "ibs-cbs",
-        "tema_nome": "IBS e CBS — novos tributos",
-        "titulo": "IBS e CBS: o que muda na prática para sua empresa com o IVA dual brasileiro",
-        "resumo": "Guia completo sobre o Imposto sobre Bens e Serviços (IBS) e a Contribuição sobre Bens e Serviços (CBS), os dois novos tributos que substituirão ICMS, ISS, PIS e COFINS.",
-        "url": "",
-        "fonte": "evergreen",
-        "data": "",
-        "origem": "evergreen",
-    },
-    {
-        "tipo": "evergreen",
-        "tema_slug": "transicao-tributaria",
-        "tema_nome": "Transição tributária (2026-2033)",
-        "titulo": "Cronograma da reforma tributária 2026-2033: o que muda a cada ano",
-        "resumo": "Guia do período de transição do sistema tributário brasileiro: como o antigo (PIS, COFINS, ICMS, ISS) convive com o novo (IBS, CBS) até 2033.",
-        "url": "",
-        "fonte": "evergreen",
-        "data": "",
-        "origem": "evergreen",
-    },
-    {
-        "tipo": "evergreen",
-        "tema_slug": "simples-reforma",
-        "tema_nome": "Regimes especiais e o Simples Nacional",
-        "titulo": "Simples Nacional e a reforma tributária: o que muda para MEI e pequenas empresas",
-        "resumo": "Como as empresas do Simples Nacional serão afetadas pela reforma tributária e quais são as opções de regime na nova sistemática.",
-        "url": "",
-        "fonte": "evergreen",
-        "data": "",
-        "origem": "evergreen",
-    },
-    {
-        "tipo": "evergreen",
-        "tema_slug": "compliance-reforma",
-        "tema_nome": "Compliance e adaptação das empresas",
-        "titulo": "Como sua empresa deve se preparar para a reforma tributária",
-        "resumo": "Checklist prático para empresas se adaptarem à reforma tributária: ERP, nota fiscal, obrigações acessórias e gestão do período de transição.",
-        "url": "",
-        "fonte": "evergreen",
-        "data": "",
-        "origem": "evergreen",
-    },
-]
-
-
-def escolher_evergreen(temas_slugs_usados: List[str]) -> Dict:
-    for tema in TEMAS_EVERGREEN:
-        if tema["tema_slug"] not in temas_slugs_usados:
-            return tema
-    return TEMAS_EVERGREEN[0]
-
-
 # ── Orquestrador principal ────────────────────────────────────────────────────
 
 def main(apenas_tema: str = "") -> Dict:
     log.info("=" * 60)
     log.info("BUSCAR NOTÍCIA — início")
+
+    # Higiene: limpar saída anterior para evitar consumo ambíguo (Direção 1)
+    arquivo_saida = BASE / "dados" / "noticia_selecionada.json"
+    if arquivo_saida.exists():
+        arquivo_saida.unlink()
 
     config_temas  = ler_json(CONFIG_TEMAS, {"temas": []})
     config_fontes = ler_json(CONFIG_FONTES, {"rss_feeds": []})
@@ -374,17 +322,17 @@ def main(apenas_tema: str = "") -> Dict:
 
     noticia = selecionar_melhor(todos_candidatos)
 
+    # Sem notícia fresca → não publica hoje (Direção 1, sem evergreen)
     if not noticia:
-        log.warning("Nenhuma notícia nova encontrada. Usando tema evergreen.")
-        slugs_usados = [t["slug"] for t in temas]
-        noticia = escolher_evergreen(slugs_usados)
+        log.warning("Nenhuma notícia nova encontrada hoje. Encerrando sem publicar (exit 75).")
+        sys.exit(75)
 
     log.info("=" * 60)
     log.info(f"RESULTADO FINAL:")
     log.info(f"  Tema:   {noticia.get('tema_nome')}")
     log.info(f"  Título: {noticia.get('titulo')}")
     log.info(f"  Fonte:  {noticia.get('fonte')} ({noticia.get('origem')})")
-    log.info(f"  URL:    {noticia.get('url') or '(sem URL — evergreen)'}")
+    log.info(f"  URL:    {noticia.get('url') or '(sem URL)'}")
     log.info("=" * 60)
 
     resultado_path = BASE / "dados" / "noticia_selecionada.json"
