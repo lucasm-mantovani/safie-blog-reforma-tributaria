@@ -370,7 +370,7 @@ def montar_artigo_completo(dados_claude: dict, noticia: dict, config_blog: dict)
         "titulo": titulo,
         "meta_titulo": f"{titulo} — {blog_nome}",
         "meta_description": dados_claude.get("meta_description", ""),
-        "canonical_url": f"{url_blog}/artigos/{slug}.html",
+        "canonical_url": f"{url_blog}/artigos/{slug}",
         "data_iso": data_iso,
         "data_formatada": data_fmt,
         "ano": ano,
