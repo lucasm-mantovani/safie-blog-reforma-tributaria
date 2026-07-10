@@ -400,6 +400,7 @@ def git_commit_push(artigo: dict):
         f"assets/img/artigos/{slug}.svg",
         "artigos/indice.json",
         "sitemap.xml",
+        "llms.txt",
     ]
     if tema_slug:
         arquivos_publicacao.append(f"temas/{tema_slug}.html")
@@ -444,6 +445,12 @@ def main(sem_git: bool = False):
 
     gerar_html_artigo(artigo, imagem_url, imagem_rel)
     atualizar_indice(artigo)
+    try:
+        from gerar_llms_txt import gerar_llms_txt
+        gerar_llms_txt()
+        log.info("llms.txt atualizado (Camada 4 GEO)")
+    except Exception as e:
+        log.warning(f"[llms.txt] Falha ao gerar (não bloqueia a publicação): {e}")
     indice = ler_json(INDICE_JSON, [])
     atualizar_home(indice, config_blog)
     atualizar_pagina_tema(artigo["tema_slug"], indice, config_temas)
